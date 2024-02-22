@@ -1,0 +1,10 @@
+UserEndpoint.ts
+HelloWorldService.ts
+com/example/application/data/User.ts
+com/example/application/data/Role.ts
+com/example/application/data/AbstractEntity.ts
+connect-client.default.ts
+endpoints.ts
+com/example/application/data/UserModel.ts
+com/example/application/data/RoleModel.ts
+com/example/application/data/AbstractEntityModel.ts

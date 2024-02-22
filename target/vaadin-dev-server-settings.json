@@ -1,0 +1,17 @@
+{
+  "frontendFolder": "/home/federico/gloria/solite/./frontend",
+  "themeFolder": "themes",
+  "themeResourceFolder": "/home/federico/gloria/solite/./frontend/generated/jar-resources",
+  "staticOutput": "/home/federico/gloria/solite/target/classes/META-INF/VAADIN/webapp/VAADIN/static",
+  "generatedFolder": "generated",
+  "statsOutput": "/home/federico/gloria/solite/target/classes/META-INF/VAADIN/config",
+  "frontendBundleOutput": "/home/federico/gloria/solite/target/classes/META-INF/VAADIN/webapp",
+  "devBundleOutput": "/home/federico/gloria/solite/target/dev-bundle/webapp",
+  "devBundleStatsOutput": "/home/federico/gloria/solite/target/dev-bundle/config",
+  "jarResourcesFolder": "/home/federico/gloria/solite/./frontend/generated/jar-resources",
+  "themeName": "hilla-with-auth",
+  "clientServiceWorkerSource": "/home/federico/gloria/solite/target/sw.ts",
+  "pwaEnabled": false,
+  "offlineEnabled": false,
+  "offlinePath": "'offline.html'"
+}
