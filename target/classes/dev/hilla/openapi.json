@@ -455,7 +455,7 @@
               "schema" : {
                 "type" : "object",
                 "properties" : {
-                  "nuevoOrganismo" : {
+                  "elOrganismo" : {
                     "anyOf" : [
                       {
                         "$ref" : "#/components/schemas/com.example.application.services.OrganismoService$OrganismoRecord"

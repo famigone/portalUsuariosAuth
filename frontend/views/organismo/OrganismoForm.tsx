@@ -27,18 +27,24 @@ export default function OrganismoForm({organismo, onSubmit}: OrganismoFormProps)
 
 
     return (
-        <div className="flex flex-col gap-s items-start">
-
+        <>
+        
+         <div className="flex flex-col gap-s items-start">
+         <b>ORGANISMO</b><hr/>
             <TextField label="Nombre" {...field(model.nombre)} />
             <TextField label="Código" {...field(model.codigo)} />
-            <TextField  label="Telefono" {...field(model.telefono)} />
-            <TextField label="Domicilio" {...field(model.domicilio )} />
-            
-
+            <TextField label="Telefono" {...field(model.telefono)} />
+            <TextField label="Domicilio" {...field(model.domicilio )} />            
+        
             <div className="flex gap-m">
                 <Button onClick={submit} theme="primary">Guardar</Button>
                 <Button onClick={reset}>Limpiar</Button>
-            </div>
+            </div>   
+        
+    
         </div>
+     
+
+    </>
     )
 }

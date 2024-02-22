@@ -30,7 +30,11 @@ async function onOrganismoSaved(organismo: OrganismoRecord) {
 
   return (
     <>
+   
    <div className="p-m flex gap-m">
+   
+               
+            
             <Grid
                 items={organismos}
                 onActiveItemChanged={e => setSelected(e.detail.value)}
@@ -41,10 +45,11 @@ async function onOrganismoSaved(organismo: OrganismoRecord) {
                 <GridColumn path="domicilio"/>
                 <GridColumn path="telefono" />
             </Grid>
-
-            {
-                <OrganismoForm organismo={selected} onSubmit={onOrganismoSaved}/>
-            }
+            <div className="p-m flex gap-m">
+              
+    <OrganismoForm organismo={selected} onSubmit={onOrganismoSaved}/>
+    </div>
+            
         </div>
     </>
   );
