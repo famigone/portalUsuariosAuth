@@ -1,21 +1,26 @@
 package com.example.application.data;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 
-
+import dev.hilla.Nullable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotBlank;
-
-import java.util.List;
-
+import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "organismo")
-public class Organismo extends AbstractEntity {
 
+public class Employee {
+
+         @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     //nombre del organismo
     @NotBlank
     private String nombre;
@@ -29,9 +34,7 @@ public class Organismo extends AbstractEntity {
     @NotBlank
     private String telefono;    
     
-    //usuarios del organismo
-    @OneToMany(mappedBy = "organismo")
-    private List<User> usuarios;
+   
     
     public String getNombre() {
         return nombre;
@@ -58,7 +61,4 @@ public class Organismo extends AbstractEntity {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
-   
-
 }
