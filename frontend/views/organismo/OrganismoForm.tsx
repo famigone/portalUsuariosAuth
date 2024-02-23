@@ -56,8 +56,8 @@ export default function OrganismoForm({organismo, onSubmit}: OrganismoFormProps)
                 <TextField label="Domicilio" {...field(model.domicilio)} />                    
             </div>
             
-            <div className="flex gap-m">
-                <Button onClick={submit} theme="primary"> <Icon icon="vaadin:arrow-circle-down" />
+            <div className="flex gap-m"  >
+                <Button onClick={submit} theme="primary small"> <Icon icon="vaadin:arrow-circle-down" />
  Guardar</Button>
                 
             </div>  

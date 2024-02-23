@@ -15,9 +15,9 @@ import { GridSortColumn } from '@hilla/react-components/GridSortColumn.js';
 import { GridFilterColumn } from '@hilla/react-components/GridFilterColumn.js';
 export default function OrganismoView() {
   const [organismos, setOrganismos] = useState<OrganismoRecord[]>([]);
-  const [selected, setSelected] = useState<OrganismoRecord | null | undefined>();
+  const [selected, setSelected] = useState<OrganismoRecord | null>();
   const [dialogOpened, setDialogOpened] = useState(false);
-  const [deleteHabilitado, setDeleteHabilitado] = useState(false);
+  const [deleteHabilitado, setDeleteHabilitado] = useState(true);
 
   useEffect(() => {
     OrganismoService.findAllOrganismos().then(setOrganismos)
@@ -60,23 +60,25 @@ export default function OrganismoView() {
       </div>
       <div className="p-m  gap-m">
         <Grid
-          theme="row-stripes"  
+          theme="row-stripes"
           allRowsVisible
           items={organismos}
           onActiveItemChanged={e => setSelected(e.detail.value)}
           selectedItems={[selected]}>
-          
-          <GridFilterColumn path="nombre" header="NOMBRE"/>
-          <GridFilterColumn path="codigo" header="CÓDIGO"/>
-          <GridSortColumn path="domicilio" header="DOMICILIO"/>
-          <GridSortColumn path="telefono" header="TELÉFONO"/>
-        </Grid>
-        <HorizontalLayout theme="spacing padding">
-          <Button onClick={() => setDialogOpened(true)} theme="primary" ><Icon icon="vaadin:close" /> Eliminar</Button>
-          <Button onClick={() => setSelected(null)} theme="primary" ><Icon icon="vaadin:refresh" />
- Nuevo</Button>
-        </HorizontalLayout>
 
+          <GridFilterColumn path="nombre" header="NOMBRE" />
+          <GridFilterColumn path="codigo" header="CÓDIGO" />
+          <GridSortColumn path="domicilio" header="DOMICILIO" />
+          <GridSortColumn path="telefono" header="TELÉFONO" />
+        </Grid>
+
+        <div style={{ margin: '3px' }} className="flex gap-m gap-s">
+
+          <Button disabled={selected == null} theme="primary error small" onClick={() => setDialogOpened(true)} ><Icon icon="vaadin:close" /> Eliminar</Button>
+          <Button onClick={() => setSelected(null)} theme="primary small" ><Icon icon="vaadin:refresh" />
+            Nuevo</Button>
+
+        </div>
         <ConfirmDialog
           header="Desea eliminar el Organismo?"
           cancelButtonVisible
