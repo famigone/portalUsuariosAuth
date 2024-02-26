@@ -6,13 +6,13 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 
 import dev.hilla.BrowserCallable;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+
 
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,7 +22,7 @@ public class OrganismoService {
 
     private final OrganismoRepository repository;
 
-    public record OrganismoRecord(
+    public record OrganismoRecord(            
             Long id,
             @NotNull String nombre,
             // código del organismo
