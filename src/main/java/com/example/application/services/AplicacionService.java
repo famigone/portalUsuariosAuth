@@ -2,6 +2,7 @@ package com.example.application.services;
 
 import com.example.application.data.Aplicacion;
 import com.example.application.data.AplicacionRepository;
+import com.example.application.data.Perfil;
 import com.example.application.data.Aplicacion;
 import com.example.application.services.AplicacionService.AplicacionRecord;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
@@ -41,6 +42,12 @@ public class AplicacionService {
     }
     public List<AplicacionRecord> findAllAplicaciones() {
         return repository.findAll().stream()
+                .map(this::toAplicacionRecord).toList();
+    }
+
+    public List<AplicacionRecord> findAllAplicacionesUsuario(Perfil perfil) {
+        return repository.findByPerfilesContains(perfil)
+                .stream()
                 .map(this::toAplicacionRecord).toList();
     }
 

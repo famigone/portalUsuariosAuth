@@ -19,11 +19,7 @@ export default function MainLayout() {
   }, [currentTitle]);
 
   const { state, logout } = useAuth();
-  const profilePictureUrl =
-    state.user &&
-    `data:image;base64,${btoa(
-      state.user.profilePicture.reduce((str, n) => str + String.fromCharCode((n + 256) % 256), '')
-    )}`;
+  const profilePictureUrl = null;
   return (
     <AppLayout primarySection="drawer">
       <div slot="drawer" className="flex flex-col justify-between h-full p-m">
@@ -45,7 +41,7 @@ export default function MainLayout() {
                 Organismos
               </NavLink>
             ) : null}
- 
+
 
           </nav>
         </header>

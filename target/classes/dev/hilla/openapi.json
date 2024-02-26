@@ -137,6 +137,52 @@
         }
       }
     },
+    "/AplicacionService/findAllAplicacionesUsuario" : {
+      "post" : {
+        "tags" : [
+          "AplicacionService"
+        ],
+        "operationId" : "AplicacionService_findAllAplicacionesUsuario_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "perfil" : {
+                    "anyOf" : [
+                      {
+                        "$ref" : "#/components/schemas/com.example.application.data.Perfil"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "anyOf" : [
+                      {
+                        "$ref" : "#/components/schemas/com.example.application.services.AplicacionService$AplicacionRecord"
+                      }
+                    ]
+                  },
+                  "x-java-type" : "java.util.List"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/AplicacionService/get" : {
       "post" : {
         "tags" : [
@@ -889,6 +935,88 @@
           }
         }
       },
+      "com.example.application.data.Perfil" : {
+        "anyOf" : [
+          {
+            "$ref" : "#/components/schemas/com.example.application.data.AbstractEntity"
+          },
+          {
+            "type" : "object",
+            "properties" : {
+              "nombre" : {
+                "type" : "string",
+                "x-java-type" : "java.lang.String"
+              },
+              "apellido" : {
+                "type" : "string",
+                "x-java-type" : "java.lang.String"
+              },
+              "username" : {
+                "type" : "string",
+                "x-java-type" : "java.lang.String"
+              },
+              "pass" : {
+                "type" : "string",
+                "x-java-type" : "java.lang.String"
+              },
+              "role" : {
+                "anyOf" : [
+                  {
+                    "$ref" : "#/components/schemas/com.example.application.data.Role"
+                  }
+                ]
+              },
+              "user" : {
+                "anyOf" : [
+                  {
+                    "$ref" : "#/components/schemas/com.example.application.data.User"
+                  }
+                ],
+                "x-annotations" : [
+                  {
+                    "name" : "jakarta.persistence.OneToOne"
+                  }
+                ]
+              },
+              "dni" : {
+                "type" : "string",
+                "x-java-type" : "java.lang.String"
+              },
+              "domicilio" : {
+                "type" : "string",
+                "x-java-type" : "java.lang.String"
+              },
+              "telefono" : {
+                "type" : "string",
+                "x-java-type" : "java.lang.String"
+              },
+              "email" : {
+                "type" : "string",
+                "x-java-type" : "java.lang.String"
+              },
+              "organismo" : {
+                "anyOf" : [
+                  {
+                    "$ref" : "#/components/schemas/com.example.application.data.Organismo"
+                  }
+                ],
+                "x-annotations" : [
+                  {
+                    "name" : "jakarta.persistence.ManyToOne"
+                  }
+                ]
+              },
+              "tipo" : {
+                "anyOf" : [
+                  {
+                    "$ref" : "#/components/schemas/com.example.application.data.Perfil$Tipo"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
       "com.example.application.data.Aplicacion" : {
         "anyOf" : [
           {
@@ -1191,88 +1319,6 @@
           }
         }
       },
-      "com.example.application.data.Perfil" : {
-        "anyOf" : [
-          {
-            "$ref" : "#/components/schemas/com.example.application.data.AbstractEntity"
-          },
-          {
-            "type" : "object",
-            "properties" : {
-              "nombre" : {
-                "type" : "string",
-                "x-java-type" : "java.lang.String"
-              },
-              "apellido" : {
-                "type" : "string",
-                "x-java-type" : "java.lang.String"
-              },
-              "username" : {
-                "type" : "string",
-                "x-java-type" : "java.lang.String"
-              },
-              "pass" : {
-                "type" : "string",
-                "x-java-type" : "java.lang.String"
-              },
-              "role" : {
-                "anyOf" : [
-                  {
-                    "$ref" : "#/components/schemas/com.example.application.data.Role"
-                  }
-                ]
-              },
-              "user" : {
-                "anyOf" : [
-                  {
-                    "$ref" : "#/components/schemas/com.example.application.data.User"
-                  }
-                ],
-                "x-annotations" : [
-                  {
-                    "name" : "jakarta.persistence.OneToOne"
-                  }
-                ]
-              },
-              "dni" : {
-                "type" : "string",
-                "x-java-type" : "java.lang.String"
-              },
-              "domicilio" : {
-                "type" : "string",
-                "x-java-type" : "java.lang.String"
-              },
-              "telefono" : {
-                "type" : "string",
-                "x-java-type" : "java.lang.String"
-              },
-              "email" : {
-                "type" : "string",
-                "x-java-type" : "java.lang.String"
-              },
-              "organismo" : {
-                "anyOf" : [
-                  {
-                    "$ref" : "#/components/schemas/com.example.application.data.Organismo"
-                  }
-                ],
-                "x-annotations" : [
-                  {
-                    "name" : "jakarta.persistence.ManyToOne"
-                  }
-                ]
-              },
-              "tipo" : {
-                "anyOf" : [
-                  {
-                    "$ref" : "#/components/schemas/com.example.application.data.Perfil$Tipo"
-                  }
-                ]
-              }
-            }
-          }
-        ]
-      },
       "com.example.application.data.Role" : {
         "type" : "string",
         "enum" : [
@@ -1305,6 +1351,13 @@
           }
         }
       },
+      "com.example.application.data.Perfil$Tipo" : {
+        "type" : "string",
+        "enum" : [
+          "INTERNO",
+          "EXTERNO"
+        ]
+      },
       "dev.hilla.mappedtypes.Sort" : {
         "type" : "object",
         "properties" : {
@@ -1321,13 +1374,6 @@
             "x-java-type" : "java.util.List"
           }
         }
-      },
-      "com.example.application.data.Perfil$Tipo" : {
-        "type" : "string",
-        "enum" : [
-          "INTERNO",
-          "EXTERNO"
-        ]
       },
       "dev.hilla.mappedtypes.Order" : {
         "type" : "object",

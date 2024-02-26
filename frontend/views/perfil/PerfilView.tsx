@@ -1,29 +1,29 @@
 import { Button } from '@hilla/react-components/Button.js';
-import { Notification } from '@hilla/react-components/Notification.js';
-import { TextField } from '@hilla/react-components/TextField.js';
+import AsignacionDialogo from 'Frontend/components/AsignacionDialogo';
 import { useEffect, useState } from 'react';
 import { Grid } from "@hilla/react-components/Grid";
-import { GridColumn } from "@hilla/react-components/GridColumn";
+
 
 import PerfilRecord from 'Frontend/generated/com/example/application/services/PerfilService/PerfilRecord';
 import { PerfilService } from 'Frontend/generated/endpoints.js';
 import PerfilForm from './PerfilForm';
 import { ConfirmDialog } from '@hilla/react-components/ConfirmDialog.js';
-import { HorizontalLayout } from '@hilla/react-components/HorizontalLayout.js';
+
 import { Icon } from '@hilla/react-components/Icon.js';
-import { GridSortColumn } from '@hilla/react-components/GridSortColumn.js';
+
 import { GridFilterColumn } from '@hilla/react-components/GridFilterColumn.js';
 
 export default function PerfilView() {
   const [perfiles, setPerfiles] = useState<PerfilRecord[]>([]);
-  const [selected, setSelected] = useState<PerfilRecord | null>();
+  const [selected, setSelected] = useState<PerfilRecord | null>();  
   const [dialogOpened, setDialogOpened] = useState(false);
-  
+  const [dialogAsignacionOpened, setDialogAsignacionOpened] = useState(false);
 
   useEffect(() => {
     PerfilService.findAllPerfiles().then(setPerfiles)        
   }, []);
 
+  const cerrarDialogo = ()=>{setDialogAsignacionOpened(false)}
 
   const onPerfilDeleted = async () => {
     if (selected && selected.id) {
@@ -50,7 +50,7 @@ export default function PerfilView() {
 
 
   }
-  console.log(perfiles)
+  
   return (
     <>
       <div className="p-m  gap-m border: 2px">
@@ -83,8 +83,10 @@ export default function PerfilView() {
           <Button disabled={selected == null} theme="primary error small" onClick={() => setDialogOpened(true)} ><Icon icon="vaadin:close" /> Eliminar</Button>
           <Button onClick={() => setSelected(null)} theme="primary small" ><Icon icon="vaadin:refresh" />
             Nuevo</Button>
-
+            <Button onClick={() => setDialogAsignacionOpened(true)} theme="primary small" ><Icon icon="vaadin:user" />
+            Asignar Aplicaciones</Button>      
         </div>
+        
         <ConfirmDialog
           header="Desea eliminar el Perfil?"
           cancelButtonVisible
@@ -101,6 +103,12 @@ export default function PerfilView() {
           }}
         />
       </div>
+
+      <AsignacionDialogo 
+              dialogAsignacionOpened={dialogAsignacionOpened} 
+              cerrarDialogo={cerrarDialogo}
+      />        
+
     </>
   );
 }
