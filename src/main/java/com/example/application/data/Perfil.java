@@ -1,16 +1,16 @@
 package com.example.application.data;
 import jakarta.annotation.Nullable;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
+
+
 import com.example.application.data.Role;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "perfil")
 public class Perfil extends AbstractEntity {
+    
 
     private String nombre;
 
@@ -41,10 +41,28 @@ public class Perfil extends AbstractEntity {
     private Organismo organismo;
 
     // relación N a N con las aplicaciones
-    @ManyToMany(mappedBy = "perfiles")
-    @Nullable
-    private Set<Aplicacion> perfil_aplicaciones = new HashSet<>();
+    @ManyToMany(fetch = FetchType.LAZY,
+      cascade = {
+          CascadeType.PERSIST,
+          CascadeType.MERGE
+      })
 
+    @JoinTable(name = "perfil_aplicacion",
+      joinColumns = { @JoinColumn(name = "perfil_id") },
+      inverseJoinColumns = { @JoinColumn(name = "aplicacion_id") })
+
+    //@Nullable
+    private Set<Aplicacion> aplicaciones = new HashSet<>();
+
+    public Set<Aplicacion> getAplicaciones() {
+        return aplicaciones;
+    }
+
+    public void setAplicaciones(Set<Aplicacion> aplicaciones) {
+        this.aplicaciones = aplicaciones;
+    }
+
+   
     public enum Tipo {
         INTERNO,
         EXTERNO
@@ -53,7 +71,7 @@ public class Perfil extends AbstractEntity {
     private Tipo tipo;
 
     public Perfil() {
-
+        this.aplicaciones = new HashSet<>();
     }
 
     public String getNombre() {
@@ -150,5 +168,6 @@ public class Perfil extends AbstractEntity {
     public void setUser(User user) {
         this.user = user;
     }
+    
 
 }

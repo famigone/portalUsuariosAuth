@@ -78,13 +78,12 @@ export default function AplicacionView() {
             Nuevo</Button>
 
         </div>
-        <ConfirmDialog
-          header="Desea eliminar el Aplicacion?"
+        <ConfirmDialog          
+          header="Desea eliminar la Aplicacion?"     
           cancelButtonVisible
           confirmText="Eliminar"
           cancelText="Cancelar"
-          opened={dialogOpened}
-
+          opened={dialogOpened}          
           onConfirm={() => {
             onAplicacionDeleted()
             setDialogOpened(false)
@@ -93,6 +92,7 @@ export default function AplicacionView() {
             setDialogOpened(false)
           }}
         />
+
       </div>
     </>
   );

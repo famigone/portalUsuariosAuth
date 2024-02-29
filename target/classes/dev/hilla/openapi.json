@@ -1,0 +1,1647 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Hilla Application",
+    "version" : "1.0.0"
+  },
+  "servers" : [
+    {
+      "url" : "http://localhost:8080/connect",
+      "description" : "Hilla Backend"
+    }
+  ],
+  "tags" : [
+    {
+      "name" : "UserEndpoint",
+      "x-class-name" : "com.example.application.services.UserEndpoint"
+    },
+    {
+      "name" : "AplicacionService",
+      "x-class-name" : "com.example.application.services.AplicacionService"
+    },
+    {
+      "name" : "HelloWorldService",
+      "x-class-name" : "com.example.application.services.HelloWorldService"
+    },
+    {
+      "name" : "OrganismoService",
+      "x-class-name" : "com.example.application.services.OrganismoService"
+    },
+    {
+      "name" : "PerfilService",
+      "x-class-name" : "com.example.application.services.PerfilService"
+    }
+  ],
+  "paths" : {
+    "/UserEndpoint/getAuthenticatedUser" : {
+      "post" : {
+        "tags" : [
+          "UserEndpoint"
+        ],
+        "operationId" : "UserEndpoint_getAuthenticatedUser_POST",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "nullable" : true,
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/com.example.application.data.User"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AplicacionService/count" : {
+      "post" : {
+        "tags" : [
+          "AplicacionService"
+        ],
+        "operationId" : "AplicacionService_count_POST",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "integer",
+                  "format" : "int32",
+                  "x-java-type" : "int"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AplicacionService/delete" : {
+      "post" : {
+        "tags" : [
+          "AplicacionService"
+        ],
+        "operationId" : "AplicacionService_delete_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer",
+                    "format" : "int64",
+                    "x-java-type" : "java.lang.Long"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        }
+      }
+    },
+    "/AplicacionService/findAllAplicaciones" : {
+      "post" : {
+        "tags" : [
+          "AplicacionService"
+        ],
+        "operationId" : "AplicacionService_findAllAplicaciones_POST",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "anyOf" : [
+                      {
+                        "$ref" : "#/components/schemas/com.example.application.services.AplicacionService$AplicacionRecord"
+                      }
+                    ]
+                  },
+                  "x-java-type" : "java.util.List"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AplicacionService/findAllAplicacionesUsuario" : {
+      "post" : {
+        "tags" : [
+          "AplicacionService"
+        ],
+        "operationId" : "AplicacionService_findAllAplicacionesUsuario_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "perfil" : {
+                    "anyOf" : [
+                      {
+                        "$ref" : "#/components/schemas/com.example.application.data.Perfil"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "anyOf" : [
+                      {
+                        "$ref" : "#/components/schemas/com.example.application.services.AplicacionService$AplicacionRecord"
+                      }
+                    ]
+                  },
+                  "x-java-type" : "java.util.List"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AplicacionService/findAplicacionesByPerfilId" : {
+      "post" : {
+        "tags" : [
+          "AplicacionService"
+        ],
+        "operationId" : "AplicacionService_findAplicacionesByPerfilId_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "perfilId" : {
+                    "type" : "integer",
+                    "format" : "int64",
+                    "x-java-type" : "long"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "anyOf" : [
+                      {
+                        "$ref" : "#/components/schemas/com.example.application.data.Aplicacion"
+                      }
+                    ]
+                  },
+                  "x-java-type" : "java.util.List"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AplicacionService/get" : {
+      "post" : {
+        "tags" : [
+          "AplicacionService"
+        ],
+        "operationId" : "AplicacionService_get_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer",
+                    "format" : "int64",
+                    "x-java-type" : "java.lang.Long"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "nullable" : true,
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/com.example.application.data.Aplicacion"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AplicacionService/list" : {
+      "post" : {
+        "tags" : [
+          "AplicacionService"
+        ],
+        "operationId" : "AplicacionService_list_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "pageable" : {
+                    "anyOf" : [
+                      {
+                        "$ref" : "#/components/schemas/dev.hilla.mappedtypes.Pageable"
+                      }
+                    ]
+                  },
+                  "filter" : {
+                    "anyOf" : [
+                      {
+                        "$ref" : "#/components/schemas/org.springframework.data.jpa.domain.Specification"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "anyOf" : [
+                      {
+                        "$ref" : "#/components/schemas/com.example.application.data.Aplicacion"
+                      }
+                    ]
+                  },
+                  "x-java-type" : "java.util.List"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AplicacionService/save" : {
+      "post" : {
+        "tags" : [
+          "AplicacionService"
+        ],
+        "operationId" : "AplicacionService_save_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "laAplicacion" : {
+                    "anyOf" : [
+                      {
+                        "$ref" : "#/components/schemas/com.example.application.services.AplicacionService$AplicacionRecord"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/com.example.application.services.AplicacionService$AplicacionRecord"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/HelloWorldService/sayHello" : {
+      "post" : {
+        "tags" : [
+          "HelloWorldService"
+        ],
+        "operationId" : "HelloWorldService_sayHello_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "name" : {
+                    "type" : "string",
+                    "x-java-type" : "java.lang.String"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "x-java-type" : "java.lang.String"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/OrganismoService/count" : {
+      "post" : {
+        "tags" : [
+          "OrganismoService"
+        ],
+        "operationId" : "OrganismoService_count_POST",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "integer",
+                  "format" : "int32",
+                  "x-java-type" : "int"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/OrganismoService/delete" : {
+      "post" : {
+        "tags" : [
+          "OrganismoService"
+        ],
+        "operationId" : "OrganismoService_delete_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer",
+                    "format" : "int64",
+                    "x-java-type" : "java.lang.Long"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        }
+      }
+    },
+    "/OrganismoService/findAllOrganismos" : {
+      "post" : {
+        "tags" : [
+          "OrganismoService"
+        ],
+        "operationId" : "OrganismoService_findAllOrganismos_POST",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "anyOf" : [
+                      {
+                        "$ref" : "#/components/schemas/com.example.application.services.OrganismoService$OrganismoRecord"
+                      }
+                    ]
+                  },
+                  "x-java-type" : "java.util.List"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/OrganismoService/get" : {
+      "post" : {
+        "tags" : [
+          "OrganismoService"
+        ],
+        "operationId" : "OrganismoService_get_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer",
+                    "format" : "int64",
+                    "x-java-type" : "java.lang.Long"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "nullable" : true,
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/com.example.application.data.Organismo"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/OrganismoService/list" : {
+      "post" : {
+        "tags" : [
+          "OrganismoService"
+        ],
+        "operationId" : "OrganismoService_list_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "pageable" : {
+                    "anyOf" : [
+                      {
+                        "$ref" : "#/components/schemas/dev.hilla.mappedtypes.Pageable"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "anyOf" : [
+                      {
+                        "$ref" : "#/components/schemas/com.example.application.data.Organismo"
+                      }
+                    ]
+                  },
+                  "x-java-type" : "java.util.List"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/OrganismoService/save" : {
+      "post" : {
+        "tags" : [
+          "OrganismoService"
+        ],
+        "operationId" : "OrganismoService_save_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "elOrganismo" : {
+                    "anyOf" : [
+                      {
+                        "$ref" : "#/components/schemas/com.example.application.services.OrganismoService$OrganismoRecord"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/com.example.application.services.OrganismoService$OrganismoRecord"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/OrganismoService/update" : {
+      "post" : {
+        "tags" : [
+          "OrganismoService"
+        ],
+        "operationId" : "OrganismoService_update_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "entity" : {
+                    "anyOf" : [
+                      {
+                        "$ref" : "#/components/schemas/com.example.application.data.Organismo"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/com.example.application.data.Organismo"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/PerfilService/convertirASetAplicacion" : {
+      "post" : {
+        "tags" : [
+          "PerfilService"
+        ],
+        "operationId" : "PerfilService_convertirASetAplicacion_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "aplicacionesRecords" : {
+                    "type" : "array",
+                    "items" : {
+                      "anyOf" : [
+                        {
+                          "$ref" : "#/components/schemas/com.example.application.services.AplicacionService$AplicacionRecord"
+                        }
+                      ]
+                    },
+                    "x-java-type" : "java.util.Set"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "anyOf" : [
+                      {
+                        "$ref" : "#/components/schemas/com.example.application.data.Aplicacion"
+                      }
+                    ]
+                  },
+                  "x-java-type" : "java.util.Set"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/PerfilService/count" : {
+      "post" : {
+        "tags" : [
+          "PerfilService"
+        ],
+        "operationId" : "PerfilService_count_POST",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "integer",
+                  "format" : "int32",
+                  "x-java-type" : "int"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/PerfilService/delete" : {
+      "post" : {
+        "tags" : [
+          "PerfilService"
+        ],
+        "operationId" : "PerfilService_delete_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer",
+                    "format" : "int64",
+                    "x-java-type" : "java.lang.Long"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        }
+      }
+    },
+    "/PerfilService/findAllPerfiles" : {
+      "post" : {
+        "tags" : [
+          "PerfilService"
+        ],
+        "operationId" : "PerfilService_findAllPerfiles_POST",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "anyOf" : [
+                      {
+                        "$ref" : "#/components/schemas/com.example.application.services.PerfilService$PerfilRecord"
+                      }
+                    ]
+                  },
+                  "x-java-type" : "java.util.List"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/PerfilService/get" : {
+      "post" : {
+        "tags" : [
+          "PerfilService"
+        ],
+        "operationId" : "PerfilService_get_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer",
+                    "format" : "int64",
+                    "x-java-type" : "java.lang.Long"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "nullable" : true,
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/com.example.application.data.Perfil"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/PerfilService/list" : {
+      "post" : {
+        "tags" : [
+          "PerfilService"
+        ],
+        "operationId" : "PerfilService_list_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "pageable" : {
+                    "anyOf" : [
+                      {
+                        "$ref" : "#/components/schemas/dev.hilla.mappedtypes.Pageable"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "anyOf" : [
+                      {
+                        "$ref" : "#/components/schemas/com.example.application.data.Perfil"
+                      }
+                    ]
+                  },
+                  "x-java-type" : "java.util.List"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/PerfilService/obtenerAplicacionesById" : {
+      "post" : {
+        "tags" : [
+          "PerfilService"
+        ],
+        "operationId" : "PerfilService_obtenerAplicacionesById_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer",
+                    "format" : "int64",
+                    "x-java-type" : "java.lang.Long"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "anyOf" : [
+                      {
+                        "$ref" : "#/components/schemas/com.example.application.data.Aplicacion"
+                      }
+                    ]
+                  },
+                  "x-java-type" : "java.util.Set"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/PerfilService/registrarNuevoUsuario" : {
+      "post" : {
+        "tags" : [
+          "PerfilService"
+        ],
+        "operationId" : "PerfilService_registrarNuevoUsuario_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "username" : {
+                    "type" : "string",
+                    "x-java-type" : "java.lang.String"
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "x-java-type" : "java.lang.String"
+                  },
+                  "name" : {
+                    "type" : "string",
+                    "x-java-type" : "java.lang.String"
+                  },
+                  "roles" : {
+                    "type" : "array",
+                    "items" : {
+                      "anyOf" : [
+                        {
+                          "$ref" : "#/components/schemas/com.example.application.data.Role"
+                        }
+                      ]
+                    },
+                    "x-java-type" : "java.util.Set"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/com.example.application.data.User"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/PerfilService/save" : {
+      "post" : {
+        "tags" : [
+          "PerfilService"
+        ],
+        "operationId" : "PerfilService_save_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "elPerfil" : {
+                    "anyOf" : [
+                      {
+                        "$ref" : "#/components/schemas/com.example.application.services.PerfilService$PerfilRecord"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/com.example.application.services.PerfilService$PerfilRecord"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/PerfilService/vincularAplicaciones" : {
+      "post" : {
+        "tags" : [
+          "PerfilService"
+        ],
+        "operationId" : "PerfilService_vincularAplicaciones_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "perfil" : {
+                    "anyOf" : [
+                      {
+                        "$ref" : "#/components/schemas/com.example.application.data.Perfil"
+                      }
+                    ]
+                  },
+                  "nuevasAplicaciones" : {
+                    "type" : "array",
+                    "items" : {
+                      "anyOf" : [
+                        {
+                          "$ref" : "#/components/schemas/com.example.application.services.AplicacionService$AplicacionRecord"
+                        }
+                      ]
+                    },
+                    "x-java-type" : "java.util.Set"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "com.example.application.data.User" : {
+        "anyOf" : [
+          {
+            "$ref" : "#/components/schemas/com.example.application.data.AbstractEntity"
+          },
+          {
+            "type" : "object",
+            "properties" : {
+              "username" : {
+                "type" : "string",
+                "x-java-type" : "java.lang.String"
+              },
+              "name" : {
+                "type" : "string",
+                "x-java-type" : "java.lang.String"
+              },
+              "roles" : {
+                "type" : "array",
+                "items" : {
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/com.example.application.data.Role"
+                    }
+                  ]
+                },
+                "x-java-type" : "java.util.Set"
+              },
+              "profilePicture" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "integer",
+                  "format" : "int32",
+                  "x-java-type" : "byte"
+                },
+                "x-java-type" : "byte[]"
+              }
+            }
+          }
+        ]
+      },
+      "com.example.application.services.AplicacionService$AplicacionRecord" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64",
+            "x-java-type" : "java.lang.Long"
+          },
+          "nombre" : {
+            "type" : "string",
+            "x-validation-constraints" : [
+              {
+                "simpleName" : "NotNull"
+              }
+            ],
+            "x-java-type" : "java.lang.String"
+          },
+          "codigo" : {
+            "type" : "string",
+            "x-validation-constraints" : [
+              {
+                "simpleName" : "NotNull"
+              }
+            ],
+            "x-java-type" : "java.lang.String"
+          }
+        }
+      },
+      "com.example.application.data.Perfil" : {
+        "anyOf" : [
+          {
+            "$ref" : "#/components/schemas/com.example.application.data.AbstractEntity"
+          },
+          {
+            "type" : "object",
+            "properties" : {
+              "nombre" : {
+                "type" : "string",
+                "x-java-type" : "java.lang.String"
+              },
+              "apellido" : {
+                "type" : "string",
+                "x-java-type" : "java.lang.String"
+              },
+              "username" : {
+                "type" : "string",
+                "x-java-type" : "java.lang.String"
+              },
+              "pass" : {
+                "type" : "string",
+                "x-java-type" : "java.lang.String"
+              },
+              "role" : {
+                "anyOf" : [
+                  {
+                    "$ref" : "#/components/schemas/com.example.application.data.Role"
+                  }
+                ]
+              },
+              "user" : {
+                "anyOf" : [
+                  {
+                    "$ref" : "#/components/schemas/com.example.application.data.User"
+                  }
+                ],
+                "x-annotations" : [
+                  {
+                    "name" : "jakarta.persistence.OneToOne"
+                  }
+                ]
+              },
+              "dni" : {
+                "type" : "string",
+                "x-java-type" : "java.lang.String"
+              },
+              "domicilio" : {
+                "type" : "string",
+                "x-java-type" : "java.lang.String"
+              },
+              "telefono" : {
+                "type" : "string",
+                "x-java-type" : "java.lang.String"
+              },
+              "email" : {
+                "type" : "string",
+                "x-java-type" : "java.lang.String"
+              },
+              "organismo" : {
+                "anyOf" : [
+                  {
+                    "$ref" : "#/components/schemas/com.example.application.data.Organismo"
+                  }
+                ],
+                "x-annotations" : [
+                  {
+                    "name" : "jakarta.persistence.ManyToOne"
+                  }
+                ]
+              },
+              "aplicaciones" : {
+                "type" : "array",
+                "items" : {
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/com.example.application.data.Aplicacion"
+                    }
+                  ]
+                },
+                "x-java-type" : "java.util.Set",
+                "x-annotations" : [
+                  {
+                    "name" : "jakarta.persistence.ManyToMany"
+                  }
+                ]
+              },
+              "tipo" : {
+                "anyOf" : [
+                  {
+                    "$ref" : "#/components/schemas/com.example.application.data.Perfil$Tipo"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "com.example.application.data.Aplicacion" : {
+        "anyOf" : [
+          {
+            "$ref" : "#/components/schemas/com.example.application.data.AbstractEntity"
+          },
+          {
+            "type" : "object",
+            "properties" : {
+              "nombre" : {
+                "type" : "string",
+                "x-validation-constraints" : [
+                  {
+                    "simpleName" : "NotBlank"
+                  },
+                  {
+                    "simpleName" : "NotNull"
+                  }
+                ],
+                "x-java-type" : "java.lang.String"
+              },
+              "codigo" : {
+                "type" : "string",
+                "x-validation-constraints" : [
+                  {
+                    "simpleName" : "NotBlank"
+                  },
+                  {
+                    "simpleName" : "NotNull"
+                  }
+                ],
+                "x-java-type" : "java.lang.String"
+              },
+              "perfiles" : {
+                "type" : "array",
+                "items" : {
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/com.example.application.data.Perfil"
+                    }
+                  ]
+                },
+                "x-java-type" : "java.util.Set",
+                "x-annotations" : [
+                  {
+                    "name" : "jakarta.persistence.ManyToMany"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "dev.hilla.mappedtypes.Pageable" : {
+        "type" : "object",
+        "properties" : {
+          "pageNumber" : {
+            "type" : "integer",
+            "format" : "int32",
+            "x-java-type" : "int"
+          },
+          "pageSize" : {
+            "type" : "integer",
+            "format" : "int32",
+            "x-java-type" : "int"
+          },
+          "sort" : {
+            "anyOf" : [
+              {
+                "$ref" : "#/components/schemas/dev.hilla.mappedtypes.Sort"
+              }
+            ]
+          }
+        }
+      },
+      "org.springframework.data.jpa.domain.Specification" : {
+        "type" : "object"
+      },
+      "com.example.application.services.OrganismoService$OrganismoRecord" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64",
+            "x-java-type" : "java.lang.Long"
+          },
+          "nombre" : {
+            "type" : "string",
+            "x-validation-constraints" : [
+              {
+                "simpleName" : "NotNull"
+              }
+            ],
+            "x-java-type" : "java.lang.String"
+          },
+          "codigo" : {
+            "type" : "string",
+            "x-validation-constraints" : [
+              {
+                "simpleName" : "NotNull"
+              }
+            ],
+            "x-java-type" : "java.lang.String"
+          },
+          "domicilio" : {
+            "type" : "string",
+            "x-validation-constraints" : [
+              {
+                "simpleName" : "NotNull"
+              }
+            ],
+            "x-java-type" : "java.lang.String"
+          },
+          "telefono" : {
+            "type" : "string",
+            "x-validation-constraints" : [
+              {
+                "simpleName" : "NotNull"
+              }
+            ],
+            "x-java-type" : "java.lang.String"
+          }
+        }
+      },
+      "com.example.application.data.Organismo" : {
+        "anyOf" : [
+          {
+            "$ref" : "#/components/schemas/com.example.application.data.AbstractEntity"
+          },
+          {
+            "type" : "object",
+            "properties" : {
+              "nombre" : {
+                "type" : "string",
+                "x-validation-constraints" : [
+                  {
+                    "simpleName" : "NotBlank"
+                  },
+                  {
+                    "simpleName" : "NotNull"
+                  }
+                ],
+                "x-java-type" : "java.lang.String"
+              },
+              "codigo" : {
+                "type" : "string",
+                "x-validation-constraints" : [
+                  {
+                    "simpleName" : "NotNull"
+                  },
+                  {
+                    "simpleName" : "NotBlank"
+                  }
+                ],
+                "x-java-type" : "java.lang.String"
+              },
+              "domicilio" : {
+                "type" : "string",
+                "x-validation-constraints" : [
+                  {
+                    "simpleName" : "NotBlank"
+                  },
+                  {
+                    "simpleName" : "NotNull"
+                  }
+                ],
+                "x-java-type" : "java.lang.String"
+              },
+              "telefono" : {
+                "type" : "string",
+                "x-validation-constraints" : [
+                  {
+                    "simpleName" : "NotBlank"
+                  },
+                  {
+                    "simpleName" : "NotNull"
+                  }
+                ],
+                "x-java-type" : "java.lang.String"
+              },
+              "perfiles" : {
+                "type" : "array",
+                "nullable" : true,
+                "items" : {
+                  "anyOf" : [
+                    {
+                      "$ref" : "#/components/schemas/com.example.application.data.Perfil"
+                    }
+                  ]
+                },
+                "x-java-type" : "java.util.List",
+                "x-annotations" : [
+                  {
+                    "name" : "jakarta.persistence.OneToMany"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "com.example.application.services.PerfilService$PerfilRecord" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64",
+            "x-java-type" : "java.lang.Long"
+          },
+          "nombre" : {
+            "type" : "string",
+            "x-validation-constraints" : [
+              {
+                "simpleName" : "NotNull"
+              }
+            ],
+            "x-java-type" : "java.lang.String"
+          },
+          "apellido" : {
+            "type" : "string",
+            "x-validation-constraints" : [
+              {
+                "simpleName" : "NotNull"
+              }
+            ],
+            "x-java-type" : "java.lang.String"
+          },
+          "dni" : {
+            "type" : "string",
+            "x-validation-constraints" : [
+              {
+                "simpleName" : "NotNull"
+              }
+            ],
+            "x-java-type" : "java.lang.String"
+          },
+          "domicilio" : {
+            "type" : "string",
+            "x-validation-constraints" : [
+              {
+                "simpleName" : "NotNull"
+              }
+            ],
+            "x-java-type" : "java.lang.String"
+          },
+          "telefono" : {
+            "type" : "string",
+            "x-validation-constraints" : [
+              {
+                "simpleName" : "NotNull"
+              }
+            ],
+            "x-java-type" : "java.lang.String"
+          },
+          "email" : {
+            "type" : "string",
+            "x-validation-constraints" : [
+              {
+                "simpleName" : "NotNull"
+              }
+            ],
+            "x-java-type" : "java.lang.String"
+          },
+          "tipo" : {
+            "anyOf" : [
+              {
+                "$ref" : "#/components/schemas/com.example.application.data.Perfil$Tipo"
+              }
+            ],
+            "x-validation-constraints" : [
+              {
+                "simpleName" : "NotNull"
+              }
+            ]
+          },
+          "organismo" : {
+            "anyOf" : [
+              {
+                "$ref" : "#/components/schemas/com.example.application.services.OrganismoService$OrganismoRecord"
+              }
+            ],
+            "x-validation-constraints" : [
+              {
+                "simpleName" : "NotNull"
+              }
+            ]
+          },
+          "username" : {
+            "type" : "string",
+            "x-validation-constraints" : [
+              {
+                "simpleName" : "NotNull"
+              }
+            ],
+            "x-java-type" : "java.lang.String"
+          },
+          "pass" : {
+            "type" : "string",
+            "x-validation-constraints" : [
+              {
+                "simpleName" : "NotNull"
+              }
+            ],
+            "x-java-type" : "java.lang.String"
+          },
+          "role" : {
+            "anyOf" : [
+              {
+                "$ref" : "#/components/schemas/com.example.application.data.Role"
+              }
+            ],
+            "x-validation-constraints" : [
+              {
+                "simpleName" : "NotNull"
+              }
+            ]
+          }
+        }
+      },
+      "com.example.application.data.Role" : {
+        "type" : "string",
+        "enum" : [
+          "USER",
+          "ADMIN"
+        ]
+      },
+      "com.example.application.data.AbstractEntity" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64",
+            "x-java-type" : "java.lang.Long",
+            "x-annotations" : [
+              {
+                "name" : "jakarta.persistence.Id"
+              }
+            ]
+          },
+          "version" : {
+            "type" : "integer",
+            "format" : "int32",
+            "x-java-type" : "int",
+            "x-annotations" : [
+              {
+                "name" : "jakarta.persistence.Version"
+              }
+            ]
+          }
+        }
+      },
+      "com.example.application.data.Perfil$Tipo" : {
+        "type" : "string",
+        "enum" : [
+          "INTERNO",
+          "EXTERNO"
+        ]
+      },
+      "dev.hilla.mappedtypes.Sort" : {
+        "type" : "object",
+        "properties" : {
+          "orders" : {
+            "type" : "array",
+            "items" : {
+              "nullable" : true,
+              "anyOf" : [
+                {
+                  "$ref" : "#/components/schemas/dev.hilla.mappedtypes.Order"
+                }
+              ]
+            },
+            "x-java-type" : "java.util.List"
+          }
+        }
+      },
+      "dev.hilla.mappedtypes.Order" : {
+        "type" : "object",
+        "properties" : {
+          "direction" : {
+            "anyOf" : [
+              {
+                "$ref" : "#/components/schemas/org.springframework.data.domain.Sort$Direction"
+              }
+            ]
+          },
+          "property" : {
+            "type" : "string",
+            "x-validation-constraints" : [
+              {
+                "simpleName" : "NotBlank"
+              }
+            ],
+            "x-java-type" : "java.lang.String"
+          },
+          "ignoreCase" : {
+            "type" : "boolean",
+            "x-java-type" : "boolean"
+          },
+          "nullHandling" : {
+            "nullable" : true,
+            "anyOf" : [
+              {
+                "$ref" : "#/components/schemas/org.springframework.data.domain.Sort$NullHandling"
+              }
+            ]
+          }
+        }
+      },
+      "org.springframework.data.domain.Sort$Direction" : {
+        "type" : "string",
+        "enum" : [
+          "ASC",
+          "DESC"
+        ]
+      },
+      "org.springframework.data.domain.Sort$NullHandling" : {
+        "type" : "string",
+        "enum" : [
+          "NATIVE",
+          "NULLS_FIRST",
+          "NULLS_LAST"
+        ]
+      }
+    }
+  }
+}

@@ -3,6 +3,7 @@ import { Avatar } from '@hilla/react-components/Avatar.js';
 import { Button } from '@hilla/react-components/Button.js';
 import { DrawerToggle } from '@hilla/react-components/DrawerToggle.js';
 import Placeholder from 'Frontend/components/placeholder/Placeholder.js';
+import Role from 'Frontend/generated/com/example/application/data/Role';
 import { useAuth } from 'Frontend/util/auth.js';
 import { useRouteMetadata } from 'Frontend/util/routing.js';
 import { Suspense, useEffect } from 'react';
@@ -19,33 +20,35 @@ export default function MainLayout() {
   }, [currentTitle]);
 
   const { state, logout } = useAuth();
-  const profilePictureUrl =
-    state.user &&
-    `data:image;base64,${btoa(
-      state.user.profilePicture.reduce((str, n) => str + String.fromCharCode((n + 256) % 256), '')
-    )}`;
+  const profilePictureUrl = null;
+  const hasRole = (role: Role) => state.user && state.user.roles && state.user.roles.includes(role);
+  //console.log("ROOOOOOOOOOL "+hasRole(Role.ADMIN))
   return (
     <AppLayout primarySection="drawer">
       <div slot="drawer" className="flex flex-col justify-between h-full p-m">
         <header className="flex flex-col gap-m">
           <h1 className="text-l m-0">PORTAL DE USUARIOS</h1>
           <nav>
-          {state.user ? (
+          {(state.user && hasRole(Role.ADMIN)  ) ? (
               <NavLink className={navLinkClasses} to="/">
                 Usuari@s
               </NavLink>
             ) : null}
-            {state.user ? (
+            {(state.user && hasRole(Role.ADMIN)  )  ? (
               <NavLink className={navLinkClasses} to="/aplicacion">
                 Aplicaciones
               </NavLink>
             ) : null}
-            {state.user ? (
+            {(state.user && hasRole(Role.ADMIN)  ) ? (
               <NavLink className={navLinkClasses} to="/organismo">
                 Organismos
               </NavLink>
             ) : null}
- 
+            {(state.user && hasRole(Role.USER) && !hasRole(Role.ADMIN) )? (
+              <NavLink className={navLinkClasses} to="/misapps">
+                Mis Apps
+              </NavLink>
+            ) : null}   
 
           </nav>
         </header>

@@ -1,21 +1,22 @@
 package com.example.application.data;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import com.example.application.services.AplicacionService.AplicacionRecord;
 
 @Entity
 @Table(name = "aplicacion")
 public class Aplicacion extends AbstractEntity {
+  
+
     //nombre de la aplicación
     @NotBlank
-    @NotNull
-    
+    @NotNull    
     private String nombre;
     //descripción de la aplicación
     @NotBlank
@@ -23,14 +24,17 @@ public class Aplicacion extends AbstractEntity {
     
     private String codigo;        
     //relación N a N entre los perfiles y sus aplicaciones
-    @ManyToMany
-    @JoinTable(
-        name = "relacion_aplicaciones_perfilusuarios",
-        joinColumns = @JoinColumn(name = "aplicacion_id",  nullable = false),
-        inverseJoinColumns = @JoinColumn(name = "perfiUsuario_id",  nullable = false)
-    )    
-
+    @ManyToMany(fetch = FetchType.LAZY,
+      cascade = {
+          CascadeType.PERSIST,
+          CascadeType.MERGE
+      },
+      mappedBy = "aplicaciones")
+    
     private Set<Perfil> perfiles = new HashSet<>();
+    
+
+
     
     public String getNombre() {
         return nombre;
@@ -45,4 +49,11 @@ public class Aplicacion extends AbstractEntity {
         this.codigo = codigo;
     }
 
+    public Set<Perfil> getPerfiles() {
+        return perfiles;
+    }
+    
+    public void setPerfiles(Set<Perfil> perfiles) {
+        this.perfiles = perfiles;
+    }
 }

@@ -1,4 +1,5 @@
 import type AbstractEntity_1 from "./AbstractEntity.js";
+import type Aplicacion_1 from "./Aplicacion.js";
 import type Organismo_1 from "./Organismo.js";
 import type Tipo_1 from "./Perfil/Tipo.js";
 import type Role_1 from "./Role.js";
@@ -15,6 +16,7 @@ interface Perfil extends AbstractEntity_1 {
     telefono: string;
     email: string;
     organismo: Organismo_1;
+    aplicaciones: Array<Aplicacion_1>;
     tipo: Tipo_1;
 }
 export default Perfil;

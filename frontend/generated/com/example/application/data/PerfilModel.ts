@@ -1,5 +1,6 @@
-import { _getPropertyModel as _getPropertyModel_1, makeObjectEmptyValueCreator as makeObjectEmptyValueCreator_1, StringModel as StringModel_1 } from "@hilla/form";
+import { _getPropertyModel as _getPropertyModel_1, ArrayModel as ArrayModel_1, makeObjectEmptyValueCreator as makeObjectEmptyValueCreator_1, StringModel as StringModel_1 } from "@hilla/form";
 import AbstractEntityModel_1 from "./AbstractEntityModel.js";
+import AplicacionModel_1 from "./AplicacionModel.js";
 import OrganismoModel_1 from "./OrganismoModel.js";
 import type Perfil_1 from "./Perfil.js";
 import TipoModel_1 from "./Perfil/TipoModel.js";
@@ -39,6 +40,9 @@ class PerfilModel<T extends Perfil_1 = Perfil_1> extends AbstractEntityModel_1<T
     }
     get organismo(): OrganismoModel_1 {
         return this[_getPropertyModel_1]("organismo", (parent, key) => new OrganismoModel_1(parent, key, false, { meta: { annotations: [{ name: "jakarta.persistence.ManyToOne" }] } }));
+    }
+    get aplicaciones(): ArrayModel_1<AplicacionModel_1> {
+        return this[_getPropertyModel_1]("aplicaciones", (parent, key) => new ArrayModel_1(parent, key, false, (parent, key) => new AplicacionModel_1(parent, key, false), { meta: { annotations: [{ name: "jakarta.persistence.ManyToMany" }], javaType: "java.util.Set" } }));
     }
     get tipo(): TipoModel_1 {
         return this[_getPropertyModel_1]("tipo", (parent, key) => new TipoModel_1(parent, key, false));

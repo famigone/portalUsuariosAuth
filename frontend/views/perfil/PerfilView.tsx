@@ -1,29 +1,32 @@
 import { Button } from '@hilla/react-components/Button.js';
-import { Notification } from '@hilla/react-components/Notification.js';
-import { TextField } from '@hilla/react-components/TextField.js';
+import AsignacionDialogo from 'Frontend/components/AsignacionDialogo';
 import { useEffect, useState } from 'react';
 import { Grid } from "@hilla/react-components/Grid";
-import { GridColumn } from "@hilla/react-components/GridColumn";
+
 
 import PerfilRecord from 'Frontend/generated/com/example/application/services/PerfilService/PerfilRecord';
-import { PerfilService } from 'Frontend/generated/endpoints.js';
+import { AplicacionService, PerfilService } from 'Frontend/generated/endpoints.js';
 import PerfilForm from './PerfilForm';
 import { ConfirmDialog } from '@hilla/react-components/ConfirmDialog.js';
-import { HorizontalLayout } from '@hilla/react-components/HorizontalLayout.js';
+
 import { Icon } from '@hilla/react-components/Icon.js';
-import { GridSortColumn } from '@hilla/react-components/GridSortColumn.js';
+
 import { GridFilterColumn } from '@hilla/react-components/GridFilterColumn.js';
+import AplicacionRecord from 'Frontend/generated/com/example/application/services/AplicacionService/AplicacionRecord';
 
 export default function PerfilView() {
   const [perfiles, setPerfiles] = useState<PerfilRecord[]>([]);
-  const [selected, setSelected] = useState<PerfilRecord | null>();
+  const [aplicacionesAsignadas, setAplicacionesAsignadas] = useState<AplicacionRecord[]>([]);
+  const [selected, setSelected] = useState<PerfilRecord | null | undefined>();  
   const [dialogOpened, setDialogOpened] = useState(false);
-  
+  const [dialogAsignacionOpened, setDialogAsignacionOpened] = useState(false);
 
   useEffect(() => {
     PerfilService.findAllPerfiles().then(setPerfiles)        
   }, []);
 
+
+  const cerrarDialogo = ()=>{setDialogAsignacionOpened(false)}
 
   const onPerfilDeleted = async () => {
     if (selected && selected.id) {
@@ -47,10 +50,23 @@ export default function PerfilView() {
       setPerfiles(perfiles => [...perfiles, saved]);
     }
     setSelected(saved);
-
-
   }
-  console.log(perfiles)
+  
+  function onSelect(perfil: PerfilRecord | null | undefined) {        
+    if (perfil) {
+      setSelected(perfil);   
+    }
+  }
+
+
+  async function cargarAplicacionesAsignadas() {   
+    console.log("entro en cargarAplicacionesAsignadas")
+    setDialogAsignacionOpened(true)
+    if (selected) await AplicacionService.findAplicacionesByPerfilId(selected.id).then(setAplicacionesAsignadas)      
+    console.log("apps: "+aplicacionesAsignadas)
+  }
+  
+
   return (
     <>
       <div className="p-m  gap-m border: 2px">
@@ -65,7 +81,8 @@ export default function PerfilView() {
           theme="row-stripes"
           allRowsVisible
           items={perfiles}
-          onActiveItemChanged={e => setSelected(e.detail.value)}
+          //onActiveItemChanged={e => setSelected(e.detail.value)}
+          onActiveItemChanged={e => onSelect(e.detail.value)}
           selectedItems={[selected]}>
           <GridFilterColumn path="tipo" header="TIPO" />          
           <GridFilterColumn path="apellido" header="APELLIDO" />          
@@ -81,10 +98,12 @@ export default function PerfilView() {
         <div style={{ margin: '3px' }} className="flex gap-m gap-s">
 
           <Button disabled={selected == null} theme="primary error small" onClick={() => setDialogOpened(true)} ><Icon icon="vaadin:close" /> Eliminar</Button>
+          <Button disabled={selected == null} onClick={() => cargarAplicacionesAsignadas()} theme="primary small" ><Icon icon="vaadin:user" />
+            Asignar Aplicaciones</Button> 
           <Button onClick={() => setSelected(null)} theme="primary small" ><Icon icon="vaadin:refresh" />
-            Nuevo</Button>
-
+            Nuevo</Button>     
         </div>
+        
         <ConfirmDialog
           header="Desea eliminar el Perfil?"
           cancelButtonVisible
@@ -101,6 +120,13 @@ export default function PerfilView() {
           }}
         />
       </div>
+
+      <AsignacionDialogo 
+              dialogAsignacionOpened={dialogAsignacionOpened} 
+              cerrarDialogo={cerrarDialogo}
+              perfil = {selected}
+      />        
+
     </>
   );
 }
