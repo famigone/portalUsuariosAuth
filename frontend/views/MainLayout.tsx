@@ -29,11 +29,7 @@ export default function MainLayout() {
         <header className="flex flex-col gap-m">
           <h1 className="text-l m-0">PORTAL DE USUARIOS</h1>
           <nav>
-          {(state.user && hasRole(Role.ADMIN)  ) ? (
-              <NavLink className={navLinkClasses} to="/">
-                Usuari@s
-              </NavLink>
-            ) : null}
+          
             {(state.user && hasRole(Role.ADMIN)  )  ? (
               <NavLink className={navLinkClasses} to="/aplicacion">
                 Aplicaciones
@@ -44,6 +40,11 @@ export default function MainLayout() {
                 Organismos
               </NavLink>
             ) : null}
+            {(state.user && hasRole(Role.ADMIN)  ) ? (
+              <NavLink className={navLinkClasses} to="/perfiles">
+                Usuarios
+              </NavLink>
+            ) : null}            
             {(state.user && hasRole(Role.USER) && !hasRole(Role.ADMIN) )? (
               <NavLink className={navLinkClasses} to="/misapps">
                 Mis Apps

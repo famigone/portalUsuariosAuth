@@ -1,8 +1,7 @@
 import { protectRoutes } from '@hilla/react-auth';
 
-
+import AplicacionesUsuarioView from './views/aplicacion/AplicacionesUsuarioView';
 import OrganismoView from './views/organismo/OrganismoView';
-
 import AplicacionView from './views/aplicacion/AplicacionView';
 import LoginView from 'Frontend/views/login/LoginView.js';
 import MainLayout from 'Frontend/views/MainLayout.js';
@@ -24,12 +23,17 @@ export const routes = protectRoutes([
     children: [
       {
         path: '/',
-        element: <PerfilView />,
+        element: <AboutView />,
         handle: { title: 'Administración de Usuarios', requiresLogin: true }
       },
       {
         path: '/organismo',
         element: <OrganismoView />,
+        handle: { title: 'Administración de Organismos', requiresLogin: true }
+      },
+      {
+        path: '/perfiles',
+        element: <PerfilView />,
         handle: { title: 'Administración de Organismos', requiresLogin: true }
       },
       {
@@ -40,6 +44,11 @@ export const routes = protectRoutes([
       {
         path: '/about',
         element: <AboutView />,
+        handle: { title: 'Administración de Aplicaciones', requiresLogin: true }
+      },
+      {
+        path: '/misapps',
+        element: <AplicacionesUsuarioView/>,
         handle: { title: 'Administración de Aplicaciones', requiresLogin: true }
       },
 
