@@ -778,6 +778,49 @@
         }
       }
     },
+    "/PerfilService/findPerfilByUsername" : {
+      "post" : {
+        "tags" : [
+          "PerfilService"
+        ],
+        "operationId" : "PerfilService_findPerfilByUsername_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "username" : {
+                    "type" : "string",
+                    "x-java-type" : "java.lang.String"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "anyOf" : [
+                      {
+                        "$ref" : "#/components/schemas/com.example.application.data.Perfil"
+                      }
+                    ]
+                  },
+                  "x-java-type" : "java.util.List"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/PerfilService/get" : {
       "post" : {
         "tags" : [

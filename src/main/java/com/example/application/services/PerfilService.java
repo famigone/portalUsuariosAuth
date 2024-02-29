@@ -107,6 +107,9 @@ public class PerfilService {
                 .map(this::toPerfilRecord).toList();
     }
 
+    public List <Perfil> findPerfilByUsername(String username) {
+        return perfilRepository.findByUsernameWithUser(username);
+    }
     public Optional<Perfil> get(Long id) {
         return perfilRepository.findById(id);
     }
@@ -142,8 +145,7 @@ public class PerfilService {
         newUser.setUsername(username);
         newUser.setHashedPassword(hashedPassword);
         newUser.setName(name);
-        newUser.setRoles(roles);
-        System.out.println("newUser "+newUser.getRoles());
+        newUser.setRoles(roles);      
         // Almacenar el usuario en la base de datos
         return userRepository.save(newUser);
     }
