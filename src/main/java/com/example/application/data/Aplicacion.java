@@ -33,7 +33,9 @@ public class Aplicacion extends AbstractEntity {
     
     private Set<Perfil> perfiles = new HashSet<>();
     
-
+    public Aplicacion() {
+        this.perfiles = new HashSet<>();
+    }
 
     
     public String getNombre() {

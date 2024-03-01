@@ -70,7 +70,7 @@ public class Perfil extends AbstractEntity {
 
     private Tipo tipo;
 
-    public Perfil() {
+    public Perfil() {        
         this.aplicaciones = new HashSet<>();
     }
 

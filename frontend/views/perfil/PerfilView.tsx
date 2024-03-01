@@ -53,6 +53,7 @@ export default function PerfilView() {
   }
 
   function onSelect(perfil: PerfilRecord | null | undefined) {
+    console.log(" dsssssssssss "+perfil?.id)
     if (perfil) {
       setSelected(perfil);
     }
@@ -60,9 +61,17 @@ export default function PerfilView() {
 
 
   async function cargarAplicacionesAsignadas() {
-    console.log("entro en cargarAplicacionesAsignadas")
+    if (selected) console.log("entro en cargarAplicacionesAsignadas "+selected.id)
     setDialogAsignacionOpened(true)
-    if (selected) await AplicacionService.findAplicacionesByPerfilId(selected.id).then(setAplicacionesAsignadas)
+    if (selected)  await AplicacionService.findAplicacionesByPerfilId(selected.id)
+    .then((result) => {
+      if (result !== null) {
+        setAplicacionesAsignadas(result);
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching aplicaciones:", error);
+    });
     console.log("apps: " + aplicacionesAsignadas)
   }
 

@@ -37,10 +37,12 @@ export default function AsignacionDialogo(props: any) {
 
         // Creamos set de Aplicacion 
         const nuevasAplicacionesSet = selectedValues.map(index => aplicaciones[index]);
-        //console.log(nuevasAplicacionesSet)    // Invoke vincularAplicaciones method
-
+        
+        console.log("props.perfil "+props.perfil)
+        
         const nuevasAplicacionesArray = Array.from(nuevasAplicacionesSet);
         PerfilService.vincularAplicaciones(props.perfil, nuevasAplicacionesArray);
+        console.log("nuevasAplicacionesArray "+nuevasAplicacionesArray)
     }
 
     return (
