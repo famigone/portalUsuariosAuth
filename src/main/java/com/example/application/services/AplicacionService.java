@@ -11,6 +11,7 @@ import dev.hilla.BrowserCallable;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -43,9 +44,11 @@ public class AplicacionService {
 
     }
 
-    public List<Aplicacion> findAplicacionesByPerfilId(long perfilId) {
-        return repository.findAplicacionesByPerfiles_Id(perfilId);
+    public List<Aplicacion> findAplicacionesByPerfiles_Id(long perfilId) {        
+        List<Aplicacion> listaResul = repository.findAplicacionesByPerfiles_Id(perfilId);                
+        return listaResul;
     }
+     
 
     public List<AplicacionRecord> findAllAplicaciones() {
         return repository.findAll().stream()

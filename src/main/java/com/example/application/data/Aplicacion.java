@@ -24,12 +24,7 @@ public class Aplicacion extends AbstractEntity {
     
     private String codigo;        
     //relación N a N entre los perfiles y sus aplicaciones
-    @ManyToMany(fetch = FetchType.LAZY,
-      cascade = {
-          CascadeType.PERSIST,
-          CascadeType.MERGE
-      },
-      mappedBy = "aplicaciones")
+    @ManyToMany(mappedBy = "aplicaciones")
     
     private Set<Perfil> perfiles = new HashSet<>();
     

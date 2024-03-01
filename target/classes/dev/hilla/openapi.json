@@ -183,12 +183,12 @@
         }
       }
     },
-    "/AplicacionService/findAplicacionesByPerfilId" : {
+    "/AplicacionService/findAplicacionesByPerfiles_Id" : {
       "post" : {
         "tags" : [
           "AplicacionService"
         ],
-        "operationId" : "AplicacionService_findAplicacionesByPerfilId_POST",
+        "operationId" : "AplicacionService_findAplicacionesByPerfiles_Id_POST",
         "requestBody" : {
           "content" : {
             "application/json" : {

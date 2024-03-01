@@ -54,25 +54,27 @@ export default function PerfilView() {
 
   function onSelect(perfil: PerfilRecord | null | undefined) {
     console.log(" dsssssssssss "+perfil?.id)
-    if (perfil) {
+    if (perfil!=null) {      
       setSelected(perfil);
+     
     }
   }
 
-
+  
   async function cargarAplicacionesAsignadas() {
     if (selected) console.log("entro en cargarAplicacionesAsignadas "+selected.id)
     setDialogAsignacionOpened(true)
-    if (selected)  await AplicacionService.findAplicacionesByPerfilId(selected.id)
+    if (selected !=null)  await AplicacionService.findAplicacionesByPerfiles_Id(selected.id)
     .then((result) => {
       if (result !== null) {
         setAplicacionesAsignadas(result);
+        console.log("apps: " + aplicacionesAsignadas)
       }
     })
     .catch((error) => {
       console.error("Error fetching aplicaciones:", error);
     });
-    console.log("apps: " + aplicacionesAsignadas)
+    
   }
 
 
@@ -106,7 +108,7 @@ export default function PerfilView() {
 
         <div style={{ margin: '3px' }} className="flex gap-m gap-s">
 
-          <Button disabled={selected == null} theme="primary error small" onClick={() => setDialogOpened(true)} ><Icon icon="vaadin:close" /> Eliminar</Button>
+          <Button disabled={selected == null || selected == undefined} theme="primary error small" onClick={() => setDialogOpened(true)} ><Icon icon="vaadin:close" /> Eliminar</Button>
           <Button disabled={selected == null} onClick={() => cargarAplicacionesAsignadas()} theme="primary small" ><Icon icon="vaadin:user" />
             Asignar Aplicaciones</Button>
           <Button onClick={() => setSelected(null)} theme="primary small" ><Icon icon="vaadin:refresh" />

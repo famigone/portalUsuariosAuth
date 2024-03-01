@@ -163,7 +163,9 @@ public class PerfilService {
         dbPerfil.setEmail(nuevoPerfil.email);
         dbPerfil.setTipo(nuevoPerfil.tipo);
         dbPerfil.setOrganismo(organismo);
-
+        dbPerfil.setPass(nuevoPerfil.pass);
+        dbPerfil.setUsername(nuevoPerfil.username);
+        dbPerfil.setRole(nuevoPerfil.role);
         // Crea un User y asigna los valores recibidos
         // creamos un set con el rol del usuario
         Set<Role> roles = Collections.singleton(Role.USER);
@@ -191,7 +193,7 @@ public class PerfilService {
         dbPerfil.setTelefono(elPerfil.telefono);
         dbPerfil.setEmail(elPerfil.email);
         dbPerfil.setTipo(elPerfil.tipo);
-        dbPerfil.setOrganismo(organismo);
+        dbPerfil.setOrganismo(organismo);        
         // Guarda el nuevo organismo en la base de datos
         Perfil savedPerfil = perfilRepository.save(dbPerfil);
         // Devuelve el organismo guardado después de convertirlo a PerfilRecord
@@ -208,17 +210,14 @@ public class PerfilService {
         return rta;
     }
 
-    public static Set<Aplicacion> convertirASetAplicacion(Set<AplicacionRecord> aplicacionesRecords) {
+    public  Set<Aplicacion> convertirASetAplicacion(Set<AplicacionRecord> aplicacionesRecords) {
         Set<Aplicacion> aplicaciones = new HashSet<>();
         System.out.println("aplicacionesRecords " + aplicacionesRecords);
     
         try {                        
                 if (aplicacionesRecords != null) {
                     aplicacionesRecords.forEach(unaApp -> {
-                            Aplicacion aplicacion = new Aplicacion();
-                            aplicacion.setNombre(unaApp.nombre());
-                            aplicacion.setCodigo(unaApp.codigo());
-                            System.out.println("add " + aplicacion.getNombre());
+                            Aplicacion aplicacion = this.aplicacionRepository.getAplicacionById(unaApp.id());
                             aplicaciones.add(aplicacion);
                         
                     });
@@ -261,19 +260,11 @@ public class PerfilService {
                 // Insertar la nueva colección de perfiles
                 if (nuevasAplicaciones != null) {
                     // Limpiar la colección de perfiles
-                    System.out.println("limpiamos ");
                     perfil.getAplicaciones().clear();
-                    System.out.println("va a hacer la vinculación de aplicaciones " + aplicacionesConvertidas);
-                    perfil.getAplicaciones().addAll(aplicacionesConvertidas);
-    
-                    System.out.println("va a guardar la vinculación "); 
-
+                    perfil.getAplicaciones().addAll(aplicacionesConvertidas);    
                     // Guardar la instancia actualizada con la nueva colección de perfiles                    
-                    Perfil resul = perfilRepository.save(perfil);
-                    System.out.println(resul);
-                     
-                    System.out.println("tamaño "+resul.getAplicaciones().toArray().length );
-                    
+                    Perfil resul = perfilRepository.save(perfil);                                      
+                    System.out.println("tamaño "+resul.getAplicaciones().toArray().length );                    
                 }
             }
         } catch (Exception e) {

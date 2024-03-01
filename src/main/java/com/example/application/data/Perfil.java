@@ -12,14 +12,17 @@ import java.util.Set;
 public class Perfil extends AbstractEntity {
     
 
+
+    
     private String nombre;
 
     private String apellido;
     
- 
+    @Basic(optional = true)
     private String username;
-
+    @Basic(optional = true)
     private String pass;
+    @Basic(optional = true)
     private Role role;
 
     @OneToOne
@@ -41,17 +44,12 @@ public class Perfil extends AbstractEntity {
     private Organismo organismo;
 
     // relación N a N con las aplicaciones
-    @ManyToMany(fetch = FetchType.LAZY,
-      cascade = {
-          CascadeType.PERSIST,
-          CascadeType.MERGE
-      })
-
+    @ManyToMany
     @JoinTable(name = "perfil_aplicacion",
       joinColumns = { @JoinColumn(name = "perfil_id") },
       inverseJoinColumns = { @JoinColumn(name = "aplicacion_id") })
 
-    //@Nullable
+    
     private Set<Aplicacion> aplicaciones = new HashSet<>();
 
     public Set<Aplicacion> getAplicaciones() {
