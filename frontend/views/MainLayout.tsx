@@ -44,7 +44,12 @@ export default function MainLayout() {
               <NavLink className={navLinkClasses} to="/perfiles">
                 Usuarios
               </NavLink>
-            ) : null}            
+            ) : null}   
+            {(state.user && hasRole(Role.ADMIN)  ) ? (
+              <NavLink className={navLinkClasses} to="/reporte">
+                Reporte
+              </NavLink>
+            ) : null}           
             {(state.user && hasRole(Role.USER) && !hasRole(Role.ADMIN) )? (
               <NavLink className={navLinkClasses} to="/misapps">
                 Mis Apps
@@ -60,7 +65,7 @@ export default function MainLayout() {
                 <Avatar theme="xsmall" img={profilePictureUrl} name={state.user.name} />
                 {state.user.name}
               </div>
-              <Button onClick={async () => logout()}>Sign out</Button>
+              <Button onClick={async () => logout()}>Salir</Button>
             </>
           ) : (
             <a href="/login">Sign in</a>

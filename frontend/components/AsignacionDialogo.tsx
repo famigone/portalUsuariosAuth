@@ -8,41 +8,49 @@ import { MouseEventHandler, useEffect, useState } from "react";
 import { AplicacionService } from "Frontend/generated/endpoints";
 import { PerfilService } from "Frontend/generated/endpoints";
 import AplicacionRecord from "Frontend/generated/com/example/application/services/AplicacionService/AplicacionRecord";
+import { Notification } from "@hilla/react-components/Notification.js";
 import { PropertyAccessors } from "@polymer/polymer/lib/mixins/property-accessors";
+import { HorizontalLayout } from "@hilla/react-components/HorizontalLayout.js";
 
 export default function AsignacionDialogo(props: any) {
 
     const [aplicaciones, setAplicaciones] = useState<AplicacionRecord[]>([]);
     const [asignadas, setAsignadas] = useState<AplicacionRecord[]>([]);
     const [selectedValues, setSelectedValues] = useState<number[]>([0, 1]);
+    const [notificationOpened, setNotificationOpened] = useState(false)
     // const [selectedValues, setSelectedValues] = useState<Set<number>>(new Set()); // Cambiado a Set<number>
 
     useEffect(() => {
-        AplicacionService.findAllAplicaciones().then(setAplicaciones)    
-        console.log("useEffect 1")    
+        AplicacionService.findAllAplicaciones().then(setAplicaciones)
+        
     }, []);
 
 
-    useEffect(() => {                
-        console.log("useEffect 2")    
+    useEffect(() => {        
         if (props.perfil != null) {
-            PerfilService.obtenerAplicacionesById(props.perfil.id).then(setAsignadas)        
+            PerfilService.obtenerAplicacionesById(props.perfil.id).then(setAsignadas)
             console.log(asignadas)
-        }else
-        console.log("es nulo el perfil")
-    }, [selectedValues]);
+        } else
+            console.log("es nulo el perfil")
+    }, []);
 
 
     const aplicar = () => {
 
         // Creamos set de Aplicacion 
         const nuevasAplicacionesSet = selectedValues.map(index => aplicaciones[index]);
-        
-        console.log("props.perfil "+props.perfil)
-        
+
+        console.log("props.perfil " + props.perfil)
+
         const nuevasAplicacionesArray = Array.from(nuevasAplicacionesSet);
-        PerfilService.vincularAplicaciones(props.perfil, nuevasAplicacionesArray);
-        console.log("nuevasAplicacionesArray "+nuevasAplicacionesArray)
+        PerfilService.vincularAplicaciones(props.perfil, nuevasAplicacionesArray)
+        .then((result) => {
+            setNotificationOpened(true);            
+          })
+          .catch((error) => {
+            console.error("Error fetching aplicaciones:", error);
+          });
+        console.log("nuevasAplicacionesArray " + nuevasAplicacionesArray)
     }
 
     return (
@@ -62,7 +70,18 @@ export default function AsignacionDialogo(props: any) {
                         )}
                         footerRenderer={() => (
                             <>
-                                <Button onClick={() => props.cerrarDialogo(false)}>Cancelar</Button>
+                                <Notification
+                                    theme="success"
+                                    duration={2000}
+                                    position="middle"
+                                    opened={notificationOpened}
+                                    onOpenedChanged={(e) => setNotificationOpened(e.detail.value)}
+                                >
+                                    <HorizontalLayout theme="spacing" style={{ alignItems: 'center' }}>
+                                        <div>Vinculación realizada.</div>                                        
+                                    </HorizontalLayout>
+                                </Notification>
+                                <Button onClick={() => props.cerrarDialogo(false)}>Cerrar</Button>
                                 <Button onClick={() => aplicar()}>Aplicar</Button>
                             </>
                         )}

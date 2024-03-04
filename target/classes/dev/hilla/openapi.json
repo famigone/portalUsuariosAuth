@@ -1549,33 +1549,30 @@
               }
             ]
           },
-          "username" : {
-            "type" : "string",
+          "user" : {
+            "anyOf" : [
+              {
+                "$ref" : "#/components/schemas/com.example.application.services.UserEndpoint$UserRecord"
+              }
+            ],
             "x-validation-constraints" : [
               {
                 "simpleName" : "NotNull"
               }
-            ],
+            ]
+          },
+          "username" : {
+            "type" : "string",
             "x-java-type" : "java.lang.String"
           },
           "pass" : {
             "type" : "string",
-            "x-validation-constraints" : [
-              {
-                "simpleName" : "NotNull"
-              }
-            ],
             "x-java-type" : "java.lang.String"
           },
           "role" : {
             "anyOf" : [
               {
                 "$ref" : "#/components/schemas/com.example.application.data.Role"
-              }
-            ],
-            "x-validation-constraints" : [
-              {
-                "simpleName" : "NotNull"
               }
             ]
           }
@@ -1634,6 +1631,48 @@
               ]
             },
             "x-java-type" : "java.util.List"
+          }
+        }
+      },
+      "com.example.application.services.UserEndpoint$UserRecord" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64",
+            "x-java-type" : "java.lang.Long"
+          },
+          "username" : {
+            "type" : "string",
+            "x-java-type" : "java.lang.String"
+          },
+          "name" : {
+            "type" : "string",
+            "x-java-type" : "java.lang.String"
+          },
+          "hashedPassword" : {
+            "type" : "string",
+            "x-java-type" : "java.lang.String"
+          },
+          "roles" : {
+            "type" : "array",
+            "items" : {
+              "anyOf" : [
+                {
+                  "$ref" : "#/components/schemas/com.example.application.data.Role"
+                }
+              ]
+            },
+            "x-java-type" : "java.util.Set"
+          },
+          "profilePicture" : {
+            "type" : "array",
+            "items" : {
+              "type" : "integer",
+              "format" : "int32",
+              "x-java-type" : "byte"
+            },
+            "x-java-type" : "byte[]"
           }
         }
       },

@@ -9,6 +9,7 @@ import { lazy } from 'react';
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
 import PerfilView from './views/perfil/PerfilView';
 import AsignarAplicacionesView from './views/aplicacion/AsignacionView';
+import Reporte from './views/reporte/Reporte';
 
 
 const AboutView = lazy(async () => import('Frontend/views/about/AboutView.js'));
@@ -34,7 +35,7 @@ export const routes = protectRoutes([
       {
         path: '/perfiles',
         element: <PerfilView />,
-        handle: { title: 'Administración de Organismos', requiresLogin: true }
+        handle: { title: 'Administración de Usuarios', requiresLogin: true }
       },
       {
         path: '/aplicacion',
@@ -42,14 +43,14 @@ export const routes = protectRoutes([
         handle: { title: 'Administración de Aplicaciones', requiresLogin: true }
       },
       {
-        path: '/about',
-        element: <AboutView />,
-        handle: { title: 'Administración de Aplicaciones', requiresLogin: true }
+        path: '/reporte',
+        element: <Reporte />,
+        handle: { title: 'Reporte', requiresLogin: true }
       },
       {
         path: '/misapps',
         element: <AplicacionesUsuarioView/>,
-        handle: { title: 'Administración de Aplicaciones', requiresLogin: true }
+        handle: { title: 'Mis Apps', requiresLogin: true }
       },
 
 

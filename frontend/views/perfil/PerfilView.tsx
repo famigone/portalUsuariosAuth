@@ -13,7 +13,7 @@ import { Icon } from '@hilla/react-components/Icon.js';
 
 import { GridFilterColumn } from '@hilla/react-components/GridFilterColumn.js';
 import AplicacionRecord from 'Frontend/generated/com/example/application/services/AplicacionService/AplicacionRecord';
-
+import { Notification } from '@hilla/react-components/Notification.js';
 export default function PerfilView() {
   const [perfiles, setPerfiles] = useState<PerfilRecord[]>([]);
   const [aplicacionesAsignadas, setAplicacionesAsignadas] = useState<AplicacionRecord[]>([]);
@@ -23,6 +23,7 @@ export default function PerfilView() {
 
   useEffect(() => {
     PerfilService.findAllPerfiles().then(setPerfiles)
+    
   }, []);
 
 
@@ -64,10 +65,13 @@ export default function PerfilView() {
   async function cargarAplicacionesAsignadas() {
     if (selected) console.log("entro en cargarAplicacionesAsignadas "+selected.id)
     setDialogAsignacionOpened(true)
-    if (selected !=null)  await AplicacionService.findAplicacionesByPerfiles_Id(selected.id)
+    //if (selected !=null)  await AplicacionService.findAplicacionesByPerfiles_Id(selected.id)        
+    if (selected !=null)  await AplicacionService.findAllAplicaciones()
     .then((result) => {
+  
+      console.log("hay " + result + " aplicaciones")
       if (result !== null) {
-        setAplicacionesAsignadas(result);
+    //    setAplicacionesAsignadas(result);
         console.log("apps: " + aplicacionesAsignadas)
       }
     })
@@ -101,9 +105,7 @@ export default function PerfilView() {
           <GridFilterColumn path="dni" header="DNI" />
           <GridFilterColumn path="email" header="EMAIL" />
           <GridFilterColumn path="domicilio" header="DOMICILIO" />
-          <GridFilterColumn path="telefono" header="TELÉFONO" />
-
-
+          <GridFilterColumn path="telefono" header="TELÉFONO" />                    
         </Grid>
 
         <div style={{ margin: '3px' }} className="flex gap-m gap-s">

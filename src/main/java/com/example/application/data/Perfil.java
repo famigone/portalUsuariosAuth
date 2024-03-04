@@ -1,7 +1,7 @@
 package com.example.application.data;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-
+import jakarta.validation.constraints.NotNull;
 
 import com.example.application.data.Role;
 import java.util.HashSet;
@@ -70,6 +70,7 @@ public class Perfil extends AbstractEntity {
 
     public Perfil() {        
         this.aplicaciones = new HashSet<>();
+        
     }
 
     public String getNombre() {

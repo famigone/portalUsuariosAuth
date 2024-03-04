@@ -16,6 +16,7 @@ com/example/application/data/Role.ts
 com/example/application/data/AbstractEntity.ts
 com/example/application/data/Perfil/Tipo.ts
 dev/hilla/mappedtypes/Sort.ts
+com/example/application/services/UserEndpoint/UserRecord.ts
 dev/hilla/mappedtypes/Order.ts
 org/springframework/data/domain/Sort/Direction.ts
 org/springframework/data/domain/Sort/NullHandling.ts
@@ -34,6 +35,7 @@ com/example/application/data/RoleModel.ts
 com/example/application/data/AbstractEntityModel.ts
 com/example/application/data/Perfil/TipoModel.ts
 dev/hilla/mappedtypes/SortModel.ts
+com/example/application/services/UserEndpoint/UserRecordModel.ts
 dev/hilla/mappedtypes/OrderModel.ts
 org/springframework/data/domain/Sort/DirectionModel.ts
 org/springframework/data/domain/Sort/NullHandlingModel.ts

@@ -2,6 +2,7 @@ import { _getPropertyModel as _getPropertyModel_1, makeObjectEmptyValueCreator a
 import TipoModel_1 from "../../data/Perfil/TipoModel.js";
 import RoleModel_1 from "../../data/RoleModel.js";
 import OrganismoRecordModel_1 from "../OrganismoService/OrganismoRecordModel.js";
+import UserRecordModel_1 from "../UserEndpoint/UserRecordModel.js";
 import type PerfilRecord_1 from "./PerfilRecord.js";
 class PerfilRecordModel<T extends PerfilRecord_1 = PerfilRecord_1> extends ObjectModel_1<T> {
     static override createEmptyValue = makeObjectEmptyValueCreator_1(PerfilRecordModel);
@@ -32,11 +33,14 @@ class PerfilRecordModel<T extends PerfilRecord_1 = PerfilRecord_1> extends Objec
     get organismo(): OrganismoRecordModel_1 {
         return this[_getPropertyModel_1]("organismo", (parent, key) => new OrganismoRecordModel_1(parent, key, false));
     }
+    get user(): UserRecordModel_1 {
+        return this[_getPropertyModel_1]("user", (parent, key) => new UserRecordModel_1(parent, key, false));
+    }
     get username(): StringModel_1 {
-        return this[_getPropertyModel_1]("username", (parent, key) => new StringModel_1(parent, key, false, { validators: [new NotNull_1()], meta: { javaType: "java.lang.String" } }));
+        return this[_getPropertyModel_1]("username", (parent, key) => new StringModel_1(parent, key, false, { meta: { javaType: "java.lang.String" } }));
     }
     get pass(): StringModel_1 {
-        return this[_getPropertyModel_1]("pass", (parent, key) => new StringModel_1(parent, key, false, { validators: [new NotNull_1()], meta: { javaType: "java.lang.String" } }));
+        return this[_getPropertyModel_1]("pass", (parent, key) => new StringModel_1(parent, key, false, { meta: { javaType: "java.lang.String" } }));
     }
     get role(): RoleModel_1 {
         return this[_getPropertyModel_1]("role", (parent, key) => new RoleModel_1(parent, key, false));

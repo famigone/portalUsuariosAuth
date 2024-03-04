@@ -8,6 +8,7 @@ import com.example.application.data.UserRepository;
 import com.example.application.data.Perfil.Tipo;
 import com.example.application.services.AplicacionService.AplicacionRecord;
 import com.example.application.services.OrganismoService.OrganismoRecord;
+import com.example.application.services.UserEndpoint.UserRecord;
 import com.example.application.data.Aplicacion;
 import com.example.application.data.AplicacionRepository;
 import com.example.application.data.Organismo;
@@ -55,9 +56,10 @@ public class PerfilService {
             @NotNull String email,
             @NotNull Tipo tipo,
             @NotNull OrganismoRecord organismo,
-            @NotNull String username,
-            @NotNull String pass,
-            @NotNull Role role
+            @NotNull UserRecord user,           
+             String username,
+             String pass,
+             Role role
     // User user
     ) {
     }
@@ -93,10 +95,17 @@ public class PerfilService {
                         perfil.getOrganismo().getCodigo(),
                         perfil.getOrganismo().getDomicilio(),
                         perfil.getOrganismo().getTelefono()),
+                new UserRecord(
+                    perfil.getUser().getId(),
+                    perfil.getUser().getUsername(),
+                    perfil.getUser().getName(),
+                    perfil.getUser().getHashedPassword(),
+                    perfil.getUser().getRoles() ,
+                    perfil.getUser().getProfilePicture() 
+                ),                        
                 perfil.getUsername(),
                 perfil.getPass(),
                 perfil.getRole()
-
         );
 
     }
@@ -163,12 +172,12 @@ public class PerfilService {
         dbPerfil.setEmail(nuevoPerfil.email);
         dbPerfil.setTipo(nuevoPerfil.tipo);
         dbPerfil.setOrganismo(organismo);
-        dbPerfil.setPass(nuevoPerfil.pass);
-        dbPerfil.setUsername(nuevoPerfil.username);
-        dbPerfil.setRole(nuevoPerfil.role);
+        //dbPerfil.setPass(nuevoPerfil.pass);
+        //dbPerfil.setUsername(nuevoPerfil.username);
+        //dbPerfil.setRole(nuevoPerfil.role);
         // Crea un User y asigna los valores recibidos
         // creamos un set con el rol del usuario
-        Set<Role> roles = Collections.singleton(Role.USER);
+        Set<Role> roles = Collections.singleton(nuevoPerfil.role);
 
         User elUsuario = this.registrarNuevoUsuario(
                 nuevoPerfil.username,
@@ -178,6 +187,7 @@ public class PerfilService {
         dbPerfil.setUser(elUsuario);
         // Guarda el nuevo organismo en la base de datos
         Perfil savedPerfil = perfilRepository.save(dbPerfil);
+       
         // Devuelve el organismo guardado después de convertirlo a PerfilRecord si es
         // necesario
         return toPerfilRecord(savedPerfil);
@@ -243,8 +253,18 @@ public class PerfilService {
         return dbPerfil.getAplicaciones() ; 
     }
     
-  
-    
+    @Transactional
+    private void eliminarAplicacionesdeUsuario(Perfil perfil) {
+        try {
+             // Limpiar la colección de perfiles
+             perfil.getAplicaciones().clear();
+             Perfil resul = perfilRepository.save(perfil);                
+        }catch(Exception e) {
+            // Manejar la excepción
+            e.printStackTrace(); 
+            
+        }
+    }
 
     @Transactional   
     public void vincularAplicaciones(Perfil perfil, Set<AplicacionRecord> nuevasAplicaciones) {
@@ -255,12 +275,12 @@ public class PerfilService {
             // Verificar si la instancia de Aplicacion existe
             if (perfil != null) {                
                 // Convertir Set<AplicacionRecord> a Set<Aplicacion>
+                System.out.println("con ustedes la madre del "+perfil.getUser().getUsername());
                 Set<Aplicacion> aplicacionesConvertidas = convertirASetAplicacion(nuevasAplicaciones);
-    
+                
                 // Insertar la nueva colección de perfiles
                 if (nuevasAplicaciones != null) {
-                    // Limpiar la colección de perfiles
-                    perfil.getAplicaciones().clear();
+                    eliminarAplicacionesdeUsuario(perfil);
                     perfil.getAplicaciones().addAll(aplicacionesConvertidas);    
                     // Guardar la instancia actualizada con la nueva colección de perfiles                    
                     Perfil resul = perfilRepository.save(perfil);                                      

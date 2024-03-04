@@ -5,6 +5,7 @@ import com.example.application.data.AplicacionRepository;
 import com.example.application.data.Perfil;
 import com.example.application.data.Aplicacion;
 import com.example.application.services.AplicacionService.AplicacionRecord;
+import com.example.application.services.PerfilService.PerfilRecord;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
 import dev.hilla.BrowserCallable;
@@ -15,6 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,19 +42,29 @@ public class AplicacionService {
         return new AplicacionRecord(
                 app.getId(),
                 app.getNombre(),
-                app.getCodigo());
+                app.getCodigo()                
+                );
 
     }
 
     public List<Aplicacion> findAplicacionesByPerfiles_Id(long perfilId) {        
-        List<Aplicacion> listaResul = repository.findAplicacionesByPerfiles_Id(perfilId);                
+        List<Aplicacion> listaResul = repository.findAplicacionByPerfiles_Id(perfilId);                
+        listaResul.forEach(app->{
+            System.out.println(app.getNombre());
+            System.out.println(app.getCodigo());
+            Set<Perfil> perfiles = app.getPerfiles();
+            if (perfiles != null) perfiles.forEach(perfi -> {
+               System.out.println(perfi.getApellido()); 
+            });
+        });
         return listaResul;
     }
      
 
     public List<AplicacionRecord> findAllAplicaciones() {
-        return repository.findAll().stream()
-                .map(this::toAplicacionRecord).toList();
+        Stream<Aplicacion> listaResul = repository.findAll().stream();
+        
+        return listaResul.map(this::toAplicacionRecord).toList();
     }
 
     public List<AplicacionRecord> findAllAplicacionesUsuario(Perfil perfil) {
@@ -90,13 +102,11 @@ public class AplicacionService {
         Aplicacion dbAplicacion = new Aplicacion();
         dbAplicacion.setNombre(nuevaAplicacion.nombre);
         dbAplicacion.setCodigo(nuevaAplicacion.codigo);
-
+        
         // Guarda el nuevo organismo en la base de datos
         Aplicacion savedAplicacion = repository.save(dbAplicacion);
 
-        // Devuelve el organismo guardado después de convertirlo a AplicacionRecord si
-        // es
-        // necesario
+        // Devuelve el organismo guardado después de convertirlo a AplicacionRecord 
         return toAplicacionRecord(savedAplicacion);
     }
 
